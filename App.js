@@ -11,8 +11,11 @@ const styles = StyleSheet.create({
     marginTop: 50,
     marginBottom: 20,
     marginHorizontal: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   input: {
+    width: '75%',
     borderBottomColor: '#4A306D',
     borderBottomWidth: 1,
     height: 40,
@@ -26,7 +29,7 @@ export default function App() {
     <View style={styles.container}>
       <View style={styles.inputContainer}>
         <TextInput placeholder='new task' style={styles.input} selectionColor='#4A306D' placeholderTextColor='#4A306D' />
-        <Button title='Add' onPress={() => console.warn('Hola')} />
+        <Button title='Add' onPress={() => console.warn('Hola')} color='#4A306D'/>
       </View>
     </View>
   );
