@@ -1,5 +1,5 @@
 import React, { useState} from 'react'
-import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, FlatList } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -51,6 +51,12 @@ export default function App() {
     setTask('');
   }
 
+  const renderItem = ({ item}) => (
+    <View style={styles.itemContainer}>
+      <Text style={styles.item}>{item.value}</Text>
+    </View>
+  )
+
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
@@ -67,13 +73,12 @@ export default function App() {
          onPress={addItem} 
          color='#4A306D'/>
       </View>
-      <View style={styles.itemList}>
-        {tasks.map((item) => (
-          <View key={`item-${item.id}`} style={styles.itemContainer}>
-            <Text style={styles.item}>{item.value}</Text>
-          </View>
-        ))}
-      </View>
+      <FlatList
+        style={styles.itemList}
+        data={tasks}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id.toString()}
+      />
     </View>
   );
 }
