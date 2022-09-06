@@ -72,6 +72,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginHorizontal: 20,
+  },
+  button: {
+    backgroundColor: '#4A306D',
+    padding: 10,
+    borderRadius: 10,
   }
 });
 
@@ -103,7 +108,7 @@ export default function App() {
   const renderItem = ({ item }) => (
     <View style={styles.itemContainer}>
       <Text style={styles.item}>{item.value}</Text>
-      <TouchableOpacity onPress={() => onHandleModal(item.id)}>
+      <TouchableOpacity style={styles.button} onPress={() => onHandleModal(item.id)}>
         <Text style={styles.delete}>X</Text>
       </TouchableOpacity>
     </View>
