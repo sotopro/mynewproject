@@ -1,5 +1,5 @@
 import React, { useState} from 'react'
-import { StyleSheet, Text, View, TextInput, Button, FlatList } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, FlatList, TouchableOpacity } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -23,15 +23,31 @@ const styles = StyleSheet.create({
     color: '#212121',
   },
   itemList: {
+    flex: 1,
+    marginVertical: 20,
     marginHorizontal: 20,
   },
   itemContainer: {
+    flex: 1,
     marginVertical: 5,
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 10,
+    backgroundColor: '#9F84BD',
+    paddingHorizontal: 10,
+    paddingVertical: 20,
+    borderRadius: 5,
   },
   item: {
     fontSize: 16,
-    color: '#212121',
+    color: '#000000',
   },
+  delete: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#ffffff'
+  }
 });
 
 
@@ -51,9 +67,16 @@ export default function App() {
     setTask('');
   }
 
-  const renderItem = ({ item}) => (
+  const onHandleDeleteItem = (id) => {
+    console.warn(id);
+  }
+
+  const renderItem = ({ item }) => (
     <View style={styles.itemContainer}>
       <Text style={styles.item}>{item.value}</Text>
+      <TouchableOpacity onPress={() => onHandleDeleteItem(item.id)}>
+        <Text style={styles.delete}>X</Text>
+      </TouchableOpacity>
     </View>
   )
 
@@ -78,6 +101,7 @@ export default function App() {
         data={tasks}
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
+        showsVerticalScrollIndicator={false}
       />
     </View>
   );
