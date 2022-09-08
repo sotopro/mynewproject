@@ -1,24 +1,10 @@
 import React, { useState} from 'react'
-import { StyleSheet, Text, View, TextInput, Button, FlatList, TouchableOpacity, Modal } from 'react-native';
-
+import { StyleSheet, Text, View, TextInput, Button, FlatList, TouchableOpacity } from 'react-native';
+import { AddTask, CustomModal  } from './components/index';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#ffffff',
-  },
-  inputContainer: {
-    marginTop: 50,
-    marginBottom: 20,
-    marginHorizontal: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  input: {
-    width: '75%',
-    borderBottomColor: '#4A306D',
-    borderBottomWidth: 1,
-    height: 40,
-    color: '#212121',
   },
   itemList: {
     flex: 1,
@@ -96,6 +82,7 @@ export default function App() {
   const [selectedTask, setSelectedTask] = useState(null);
 
   const onHandleChangeText = (text) => {
+    console.warn('text', text);
     setTask(text);
   }
 
@@ -110,7 +97,6 @@ export default function App() {
   const onHandleModal = (id) => {
     setModalVisible(!modalVisible);
     setSelectedTask(tasks.find((item) => item.id === id))
-    console.warn(id);
   }
 
   const renderItem = ({ item }) => (
@@ -130,20 +116,16 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.inputContainer}>
-        <TextInput 
-          placeholder='new task'
-          style={styles.input}
-          selectionColor='#4A306D'
-          placeholderTextColor='#4A306D' 
-          onChangeText={onHandleChangeText}
-          value={task}
-        />
-        <Button
-         title='Add' 
-         onPress={addItem} 
-         color='#4A306D'/>
-      </View>
+      <AddTask 
+        item={task}
+        onChangeText={onHandleChangeText}
+        placeholder='new task'
+        addItem={addItem}
+        selectionColor='#4A306D'
+        placeholderTextColor='#4A306D'
+        textButton='ADD'
+        color='#4A306D'
+      />
       <FlatList
         style={styles.itemList}
         data={tasks}
@@ -151,7 +133,7 @@ export default function App() {
         keyExtractor={(item) => item.id.toString()}
         showsVerticalScrollIndicator={false}
       />
-      <Modal animationType='slide' visible={modalVisible}>
+      <CustomModal animationType='slide' visible={modalVisible}>
         <View style={styles.modalContainer}>
           <Text style={styles.modalTitle}>Detalle de la lista</Text>
         </View>
@@ -173,7 +155,7 @@ export default function App() {
             color='#cccccc'
           />
         </View>
-      </Modal>
+      </CustomModal>
     </View>
   );
 }
